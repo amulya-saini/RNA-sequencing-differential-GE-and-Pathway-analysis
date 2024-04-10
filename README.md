@@ -1,4 +1,4 @@
-# Unveiling Genomic Dynamics in Primary Sclerosing Cholangitis: From RNA Sequencing to Pathway Analysis
+# Primary Sclerosing Cholangitis: From RNA Sequencing to Pathway Analysis
 
 This project is a deep dive into the genomic landscapes governing arterial impact in Primary Sclerosing Cholangitis (PSC). Using RNA sequencing data derived from hepatic artery cells in liver transplant recipients, the study employs a robust analysis workflow encompassing tools like SRA-toolkit,fastqc, trimmomatic, Hisat2, subread, DESeq2, g:Profiler and KEGG pathway analysis. Results illuminate 297 differentially expressed genes, unraveling the molecular intricacies of PSC.
 

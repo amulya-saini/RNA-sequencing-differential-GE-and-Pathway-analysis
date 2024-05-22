@@ -58,7 +58,7 @@ for forward_file in "$input_dir"/*_1.fastq; do
     trimmomatic PE -phred33 \
     "$forward_file" "$reverse_file" \
     "$output_dir/${filename%_1.fastq}_forward_paired.fastq" "$output_dir/${filename%_1.fastq}_forward_unpaired.fastq" "$output_dir/${filename%_1.fastq}_reverse_paired.fastq" "$output_dir/${filename%_1.fastq}_reverse_unpaired.fastq" \
-    LEADING:3 TRAILING:0 SLIDINGWINDOW:4:20 > trim_log.txt 2>&1
+    LEADING:30 TRAILING:30 SLIDINGWINDOW:4:20 > trim_log.txt 2>&1
 done
 
 - running the fastqc and multiqc 

@@ -1,0 +1,5 @@
+name: sra
+channels:
+  - bioconda
+dependencies:
+  - sra-tools

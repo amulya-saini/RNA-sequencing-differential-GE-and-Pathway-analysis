@@ -1,5 +1,0 @@
-name: featurecounts
-channels:
-  - bioconda
-dependencies:
-  - subread

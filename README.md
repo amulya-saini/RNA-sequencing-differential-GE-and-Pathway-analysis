@@ -13,9 +13,14 @@ The methodology involves rigorous preprocessing, quality assessment, and alignme
 
 The code.txt file contains generalized commands for analyzing the data on a Unix system. However, I have also performed the analysis using Snakemake. Below are the instructions on how to do it. However, remember that the code should be tweaked to suit your analysis based on your data and specific requirements.
 
+## What is Snakemake?
+
+Snakemake is like our go-to tool for automating bioinformatics workflows. It's kind of like having a personal assistant for data analysis. Since we have to run a bunch of different programs in a certain order to process our data. Snakemake takes care of all that for us. We just need to tell it what tools we need, what data they work on, and how they fit together, and it handles the rest. It's super handy when we have a ton of files to process or when we're working on a big project that needs to run on a powerful computer. Basically, Snakemake helps us write down our analysis in a simple way, so we can focus on the science instead of worrying about the technical stuff.
+
+
 ## Snakemake Workflow for RNA-Seq Analysis
 
-This contains a Snakemake workflow for RNA-Seq analysis. The workflow automates the processing of raw sequence data, including quality control, trimming, alignment, and quantification, using tools such as FastQC, Trimmomatic, Hisat2, and FeatureCounts. It is designed to run on a High-Performance Computing (HPC) system.
+Below is a Snakemake workflow for RNA-Seq analysis. The workflow automates the processing of raw sequence data, including quality control, trimming, alignment, and quantification, using tools such as FastQC, Trimmomatic, Hisat2, and FeatureCounts. It is designed to run on a High-Performance Computing (HPC) system.
 
 ## Prerequisites
 

@@ -1,0 +1,122 @@
+# Define the samples
+SAMPLES = ["ERR9922199", "ERR9922200", "ERR9922201", "ERR9922202", "ERR9922203", "ERR9922204", "ERR9922205", "ERR9922206"]
+
+# Define the final outputs of the workflow
+rule all:
+    input:
+        expand("results/sorted_bam/{sample}_sorted.bam.bai", sample=SAMPLES),  # Final sorted BAM index files for all samples
+        "results/quantification/all_samples_gene_count.txt"  # Final quantification result
+
+# Rule to download SRA files
+rule prefetch:
+    output:
+        "data/SRA/{sample}.sra"
+    conda:
+        "envs/sra.yaml"
+    shell:
+        "prefetch {wildcards.sample} -O data/SRA/"
+
+# Rule to convert SRA to FASTQ
+rule fastq_dump:
+    input:
+        "data/SRA/{sample}.sra"
+    output:
+        "data/{sample}_1.fastq", "data/{sample}_2.fastq"
+    conda:
+        "envs/sra.yaml"
+    shell:
+        "fastq-dump --split-files {input}"
+
+# Rule to run FastQC
+rule fastqc:
+    input:
+        "data/{sample}_1.fastq", "data/{sample}_2.fastq"
+    output:
+        "results/fastqc/{sample}_1_fastqc.html", "results/fastqc/{sample}_2_fastqc.html"
+    conda:
+        "envs/fastqc.yaml"
+    shell:
+        "fastqc {input} -o results/fastqc/"
+
+# Rule to combine FastQC reports using MultiQC
+rule multiqc:
+    input:
+        expand("results/fastqc/{sample}_1_fastqc.html", sample=SAMPLES)
+    output:
+        "results/fastqc/multiqc_report.html"
+    conda:
+        "envs/multiqc.yaml"
+    shell:
+        "multiqc results/fastqc/ -o results/fastqc/"
+
+# Rule to trim reads using Trimmomatic
+rule trim:
+    input:
+        "data/{sample}_1.fastq", "data/{sample}_2.fastq"
+    output:
+        "results/trimmed/{sample}_forward_paired.fastq", "results/trimmed/{sample}_forward_unpaired.fastq",
+        "results/trimmed/{sample}_reverse_paired.fastq", "results/trimmed/{sample}_reverse_unpaired.fastq"
+    conda:
+        "envs/trimmomatic.yaml"
+    shell:
+        """
+        trimmomatic PE -phred33 {input[0]} {input[1]} {output[0]} {output[1]} {output[2]} {output[3]} \
+        LEADING:30 TRAILING:30 SLIDINGWINDOW:4:20 > logs/{wildcards.sample}_trim_log.txt 2>&1
+        """
+
+# Rule to align reads using Hisat2
+rule hisat2_align:
+    input:
+        "results/trimmed/{sample}_forward_paired.fastq", "results/trimmed/{sample}_reverse_paired.fastq"
+    output:
+        "results/alignment/{sample}.sam"
+    conda:
+        "envs/hisat2.yaml"
+    shell:
+        """
+        hisat2 -x /path/to/hisat2/index -1 {input[0]} -2 {input[1]} -S {output}
+        """
+
+# Rule to convert SAM to BAM using Samtools
+rule sam_to_bam:
+    input:
+        "results/alignment/{sample}.sam"
+    output:
+        "results/bam/{sample}.bam"
+    conda:
+        "envs/samtools.yaml"
+    shell:
+        "samtools view -bS {input} > {output}"
+
+# Rule to sort BAM files using Samtools
+rule sort_bam:
+    input:
+        "results/bam/{sample}.bam"
+    output:
+        "results/sorted_bam/{sample}_sorted.bam"
+    conda:
+        "envs/samtools.yaml"
+    shell:
+        "samtools sort {input} -o {output}"
+
+# Rule to index sorted BAM files using Samtools
+rule index_bam:
+    input:
+        "results/sorted_bam/{sample}_sorted.bam"
+    output:
+        "results/sorted_bam/{sample}_sorted.bam.bai"
+    conda:
+        "envs/samtools.yaml"
+    shell:
+        "samtools index {input}"
+
+# Rule to quantify gene expression using featureCounts
+rule featurecounts:
+    input:
+        expand("results/sorted_bam/{sample}_sorted.bam", sample=SAMPLES)
+    output:
+        "results/quantification/all_samples_gene_count.txt"
+    conda:
+        "envs/featurecounts.yaml"
+    shell:
+        "featureCounts -a /path/to/genes.gtf -o {output} -p {input}"

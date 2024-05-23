@@ -64,9 +64,9 @@ snakemake --use-conda --cores <num_cores>
 Replace <num_cores> with the number of CPU cores you want Snakemake to utilize.
 
 ## Editing the Workflow
-Module Installation: Ensure that the required software tools are available on the HPC system or install them manually using Conda.
-Adjustments: Edit the Snakefile and YAML files according to your specific data and biological question.
+- Module Installation: Ensure that the required software tools are available on the HPC system or install them manually using Conda.
+- Adjustments: Edit the Snakefile and YAML files according to your specific data and biological question.
 
 ## File Formats
-Conda Environment YAML Files: YAML files for each tool (e.g., fastqc.yaml, trimmomatic.yaml) should be saved in the envs/ directory.
-Snakefile: The Snakemake workflow definition file should be saved as Snakefile in the project root directory.
+- Conda Environment YAML Files: YAML files for each tool (e.g., fastqc.yaml, trimmomatic.yaml) should be saved in the envs/ directory.
+- Snakefile: The Snakemake workflow definition file should be saved as Snakefile in the project root directory.

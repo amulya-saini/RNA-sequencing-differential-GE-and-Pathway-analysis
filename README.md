@@ -1,9 +1,8 @@
 # Primary Sclerosing Cholangitis: From RNA Sequencing to Pathway Analysis
 
-This project is a deep dive into the genomic landscapes governing arterial impact in Primary Sclerosing Cholangitis (PSC). Using RNA sequencing data derived from hepatic artery cells in liver transplant recipients, the study employs a robust analysis workflow encompassing tools like SRA-toolkit,fastqc, trimmomatic, Hisat2, subread, DESeq2, g:Profiler and KEGG pathway analysis. Results illuminate 297 differentially expressed genes, unraveling the molecular intricacies of PSC.
+This project is a deep dive into the genomic landscapes governing arterial impact in Primary Sclerosing Cholangitis (PSC). Using RNA sequencing data derived from hepatic artery cells in liver transplant recipients, the study employs a robust analysis workflow encompassing tools like SRA-toolkit,fastqc, trimmomatic, Hisat2, subread, DESeq2, g:Profiler and KEGG pathway analysis. Results illuminate 297 differentially expressed genes, unraveling the molecular intricacies of PSC. The methodology involves rigorous preprocessing, quality assessment, and alignment steps, ensuring the reliability of downstream analyses. 
+#### Noteworthy findings include 52 upregulated and 245 downregulated genes, providing critical insights into the genetic factors at play in PSC.
 
-The methodology involves rigorous preprocessing, quality assessment, and alignment steps, ensuring the reliability of downstream analyses. 
-## Noteworthy findings include 52 upregulated and 245 downregulated genes, providing critical insights into the genetic factors at play in PSC.
 
 The code.txt file contains generalized commands for analyzing the data on a Unix system. However, I have also performed the analysis using Snakemake. Below are the instructions on how to do it. However, remember that the code should be tweaked to suit your analysis based on your data and specific requirements.
 

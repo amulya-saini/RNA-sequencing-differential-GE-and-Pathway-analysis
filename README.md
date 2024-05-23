@@ -69,13 +69,7 @@ rna_seq_project/
 2. **Initialize Conda Environments**:
 
 ```bash
-conda env create -f envs/sra.yaml
-conda env create -f envs/fastqc.yaml
-conda env create -f envs/multiqc.yaml
-conda env create -f envs/trimmomatic.yaml
-conda env create -f envs/hisat2.yaml
-conda env create -f envs/samtools.yaml
-conda env create -f envs/featurecounts.yaml
+conda env create -f envs/sra.yaml -f envs/fastqc.yaml -f envs/multiqc.yaml -f envs/trimmomatic.yaml -f envs/hisat2.yaml -f envs/samtools.yaml -f envs/featurecounts.yaml
 ```
 
 3. **Run Snakemake Workflow**:

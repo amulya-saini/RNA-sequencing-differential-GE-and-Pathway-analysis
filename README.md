@@ -55,7 +55,19 @@ rna_seq_project/
 
 1. **Create Conda Environments**: Set up Conda environments for each tool using the provided YAML files in the `envs/` directory.
 
-2. **Run Snakemake Workflow**:
+2. **Initialize Conda Environments**:
+
+```bash
+conda env create -f envs/sra.yaml
+conda env create -f envs/fastqc.yaml
+conda env create -f envs/multiqc.yaml
+conda env create -f envs/trimmomatic.yaml
+conda env create -f envs/hisat2.yaml
+conda env create -f envs/samtools.yaml
+conda env create -f envs/featurecounts.yaml
+```
+
+3. **Run Snakemake Workflow**:
 
 ```bash
 snakemake --use-conda --cores <num_cores>
